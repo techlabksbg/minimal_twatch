@@ -1,30 +1,35 @@
 #include <Arduino.h>
 
+// Include our header file, so the function header is known
+#include "nextprime.h"
+
+// Count milliseconds
+long unsigned start=0;  
 void setup() {
   Serial.begin(115000);
   Serial.println(2);  // First prime
+  start = millis();
 }
 
 /**
  * Global variable of type int (32 Bits)
- * initialized to 3.
- * We treat the prime 2 in the setup loop ;-)
+ * initialized to 0.
  */
-int counter=3;
+int prime=0;
+/**
+ * Only output a prime every step numbers
+ */
+const int step = 100000;
+int next=step;  // when to output the next prime
+
+
 void loop() {
-  while (true) { // endless loop
-    bool isPrime = true;
-    for (int d=3; d*d<=counter; d+=2) {  // start with d=3, as long as d*d<=counter, at the end add 2
-      if (counter % d == 0) {   // divisor found
-        isPrime = false;        // not prime stop for loop
-        break;
-      }
-    }
-    if (isPrime) {    // stop while loop
-      break;
-    }
-    counter+=2;   // otherwise check next candidate
+  prime = nextPrime(prime);
+  // Speed up the output!
+  if (prime>next) {
+    // %lu is for long unsigned
+    Serial.printf("prime=%d, %lu ms for %d primes\n", prime, (millis()-start), step);
+    start = millis();
+    next+=step;
   }
-  Serial.println(counter);
-  counter+=2;   // Increase counter by 2
 }
