@@ -8,8 +8,7 @@ void setup() {
 int counter = 0;
 void loop() {
   counter++;
-  String s = "Hallo zum ";
-  s += counter;
+  String s = "Hallo zum "+counter;
   s += "-ten mal.";
   Serial.println(s);
   delay(1000);
