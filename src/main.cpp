@@ -5,9 +5,14 @@ void setup() {
 }
 
 /**
- * Open the serial monitor to see the output
+ * Global variable of type int (32 Bits)
+ * initialized to 0.
  */
+
+int counter=0;
+
 void loop() {
-  Serial.println("Hello world!");
+  Serial.printf("counter=%d, it takes up %d bytes\n", counter, sizeof(counter));
   delay(1000);
+  counter++;   // Increase counter by 1
 }
