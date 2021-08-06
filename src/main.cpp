@@ -4,10 +4,13 @@ void setup() {
   Serial.begin(115000);
 }
 
-/**
- * Open the serial monitor to see the output
- */
+
+int counter = 0;
 void loop() {
-  Serial.println("Hello world!");
+  counter++;
+  String s = "Hallo zum ";
+  s += counter;
+  s += "-ten mal.";
+  Serial.println(s);
   delay(1000);
 }
