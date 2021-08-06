@@ -9,15 +9,16 @@ void setup() {
  * Expect unexcpected behavior if writing strings longer than this,
  * like system crashes, arbitrary variable changes etc...
  */
-char buffer[50];
 int counter = 0;
+char buffer[20];
 void loop() {
-  counter++;
-  sprintf(buffer, "Hallo zum %d-ten mal\n", counter);
-  Serial.print(buffer);
-  for (int p=16; p<24; p++) {
-    Serial.printf("b[%d]=%d='%c', ", p, buffer[p], buffer[p]);
+  if (counter == 0) {
+    Serial.printf("buffer at address %p, counter at address %p\n", buffer, &counter);
   }
-  Serial.println();  // new line
+  counter++;
+  char temp[20];
+  sprintf(temp, "%d",counter);
+  strcat(buffer, temp);  // append the contents of temp to the contents of buffer
+  Serial.println(buffer);
   delay(1000);
 }
