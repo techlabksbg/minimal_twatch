@@ -2,17 +2,29 @@
 
 void setup() {
   Serial.begin(115000);
+  Serial.println(2);  // First prime
 }
 
 /**
  * Global variable of type int (32 Bits)
- * initialized to 0.
+ * initialized to 3.
+ * We treat the prime 2 in the setup loop ;-)
  */
-
-int counter=0;
-
+int counter=3;
 void loop() {
-  Serial.printf("counter=%d, it takes up %d bytes\n", counter, sizeof(counter));
-  delay(1000);
-  counter++;   // Increase counter by 1
+  while (true) { // endless loop
+    bool isPrime = true;
+    for (int d=3; d*d<=counter; d+=2) {  // start with d=3, as long as d*d<=counter, at the end add 2
+      if (counter % d == 0) {   // divisor found
+        isPrime = false;        // not prime stop for loop
+        break;
+      }
+    }
+    if (isPrime) {    // stop while loop
+      break;
+    }
+    counter+=2;   // otherwise check next candidate
+  }
+  Serial.println(counter);
+  counter+=2;   // Increase counter by 2
 }
